@@ -14,6 +14,7 @@ class Car{
         this.angle = 0;
 
         //controls
+        this.sensor = new Sensor(this);
         this.controls = new Controls();
 
     }
@@ -23,6 +24,7 @@ class Car{
      */
     update(){
         this.#move();
+        this.sensor.update();
 
     }
 
@@ -74,18 +76,21 @@ class Car{
         ctx.save();
         ctx.translate(this.x,this.y); // we translate to the poin where we want the rotation to be centered at
         ctx.rotate(-this.angle);//tell the context to rotate by minus this angle
+
         ctx.beginPath();
         ctx.rect(
             -this.width/2,
             -this.height/2,
             this.width,
             this.height
-        )
+        );
 
             // metodo pars dibujar se usa el fill para mostrar lo dibujado en el canvas
         ctx.fill();
 
         ctx.restore();
+
+        this.sensor.draw(ctx);
     }
 
 }
