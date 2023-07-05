@@ -22,9 +22,9 @@ class Car{
     /**
      * Mueve el carrito
      */
-    update(){
+    update(roadBorders){
         this.#move();
-        this.sensor.update();
+        this.sensor.update(roadBorders);
 
     }
 

@@ -13,7 +13,7 @@ animate();
 
 //método recursivo para refrescar la pantalla una y otra vez
 function animate (){
-    car.update();
+    car.update(road.borders);
 
     canvas.height = window.innerHeight;
 
