@@ -27,8 +27,8 @@ class Sensor {
                 const touch = getIntersection(
                     ray[0],
                     ray[1],
-                    rayBorder[i][0],
-                    rayBorder[i][1]
+                    roadBorders[i][0],
+                    roadBorders[i][1]
                 );
                 if(touch){
                     touches.push(touch);
@@ -42,6 +42,7 @@ class Sensor {
             }else{
                 const offsets  = touches.map(e=>e.offset);
                 const minOffset = Math.min(...offsets);
+                return touches.find(e=>e.offset === minOffset);
             }
 
 
@@ -69,6 +70,10 @@ class Sensor {
 
         draw(ctx){
             for (let i=0; i<this.rayCount; i++){
+                let end = this.rays[i][1];
+                if(this.readings[i]){
+                    end = this.readings[i];
+                }
                 ctx.beginPath();
                 ctx.lineWidth =2;
                 ctx.strokeStyle ="yellow";
@@ -76,9 +81,24 @@ class Sensor {
                     this.rays[i][0].x,
                     this.rays[i][0].y);
                 ctx.lineTo(
+                   end.x,
+                    end.y
+                    );
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.lineWidth =2;
+                ctx.strokeStyle ="black";
+                ctx.moveTo(
                     this.rays[i][1].x,
                     this.rays[i][1].y);
+                ctx.lineTo(
+                   end.x,
+                    end.y
+                    );
                 ctx.stroke();
+
+                
             }
         }
 }
